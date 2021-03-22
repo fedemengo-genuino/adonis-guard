@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@adonisjs/generic-exceptions": "^3.0.1",
-    "@slynova/fence": "^1.0.6",
+    "@fedemengo/fence": "github:fedemengo-genuino/fence",
     "lodash": "^4.17.21",
     "pluralize": "^8.0.0"
   },
