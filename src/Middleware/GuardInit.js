@@ -7,7 +7,7 @@
  * @copyright Slynova - Romain Lanz <romain.lanz@slynova.ch>
  */
 
-const { Guard } = require('@slynova/fence')
+const { Guard } = require('@fedemengo/fence')
 
 class GuardInit {
   async handle (ctx, next) {
