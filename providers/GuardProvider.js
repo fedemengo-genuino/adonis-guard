@@ -7,7 +7,7 @@
  * @copyright Slynova - Romain Lanz <romain.lanz@slynova.ch>
  */
 
-const { Gate, Helpers } = require('@slynova/fence')
+const { Gate, Helpers } = require('@fedemengo/fence')
 const { ServiceProvider } = require('@adonisjs/fold')
 
 class GuardProvider extends ServiceProvider {
@@ -33,22 +33,23 @@ class GuardProvider extends ServiceProvider {
 
     this.app.bind('Adonis/Middleware/Can', () => {
       const Can = require('../src/Middleware/Can') // eslint-disable-line global-require
+
       return new Can()
     })
 
     this.app.bind('Adonis/Middleware/GuardInit', () => {
       const GuardInit = require('../src/Middleware/GuardInit') // eslint-disable-line global-require
+
       return new GuardInit()
     })
   }
 
   $monkeyPatch () {
-    Helpers.formatResourceName = (resource) => {
-      return resource.$gate.namespace
-    }
+    Helpers.formatResourceName = resource => resource.$gate.namespace
 
     Gate.policy = (resourceName, policyName) => {
       const resource = this.app.use(resourceName)
+
       resource.prototype.$gate = { namespace: resourceName }
 
       const policy = this.app.make(policyName)
@@ -72,6 +73,7 @@ class GuardProvider extends ServiceProvider {
 
   boot () {
     const ace = require('@adonisjs/ace') // eslint-disable-line global-require
+
     ace.addCommand('Guard/Commands/Make:Policy')
 
     this.app.with('Adonis/Src/View', (View) => {
